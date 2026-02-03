@@ -1,7 +1,14 @@
 import requests
+import os
+from dotenv import load_dotenv
+
+
+load_dotenv()  # carrega o .env
+
+API_KEY = os.getenv("OPENWEATHER_API_KEY")
 
 def obter_dados_clima(cidade): 
-    url = f"http://api.openweathermap.org/data/2.5/weather?q={cidade}&appid={API_KOPENWEATHER_API_KEY}&units=metric"
+    url = f"http://api.openweathermap.org/data/2.5/weather?q={cidade}&appid={API_KEY}&units=metric"
 
     response = requests.get(url)
     data = response.json()
@@ -16,7 +23,7 @@ def obter_dados_clima(cidade):
     }
 
 def obter_prev_chuva(cidade):
-    url = f"http://api.openweathermap.org/data/2.5/forecast?q={cidade}&appid={OPENWEATHER_API_KEY}&units=metric"
+    url = f"http://api.openweathermap.org/data/2.5/forecast?q={cidade}&appid={API_KEY}&units=metric"
 
     response = requests.get(url)
 

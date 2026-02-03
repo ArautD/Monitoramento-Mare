@@ -5,6 +5,7 @@ from rules.risco import calcular_risco
 
 app = FastAPI()
 
+"""Adicionar as variaveis em inglês tras maior profissionalismo"""
 @app.get("/")
 
 def home():
