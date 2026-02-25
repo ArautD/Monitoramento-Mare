@@ -1,9 +1,11 @@
 from pathlib import Path
-
-from rest_framework.decorators import api_view
+from rest_framework import status
+from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 from .ml.model import predict
+from .serializers import ClassificationRequestSerializer
 
 
 @api_view(["POST"])
@@ -20,48 +22,32 @@ def classify2(request):
         }
     )
 
+class ClassifyView(APIView):
+    def post(self, request):
+        serializer = ClassificationRequestSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
-@api_view(["POST"])
-def classify(request):
-    """
-    Endpoint de classificação.
+        image = serializer.validated_data.get("image")
+        image_path = serializer.validated_data.get("image_path")
 
-    Aceita:
-    - upload de arquivo (multipart/form-data) com o campo "image";
-    - OU caminho de arquivo no servidor, via JSON: {"image_path": "img/minha_imagem.tif"}.
-    """
-    file = request.FILES.get("image")
-    image_path = request.data.get("image_path")
+        try:
+            if image is not None:
+                clas, confidence = predict(image)
+            else:
+                path = Path(image_path)
+                if not path.is_file():
+                    return Response(
+                        {"error": f"arquivo não encontrado no servidor: {image_path}"},
+                        status = status.HTTP_400_BAD_REQUEST
+                    )
+                clas, confidence = predict(str(path))
 
-    if not file and not image_path:
-        return Response(
-            {"error": "nenhuma imagem enviada. Use o campo 'image' (arquivo) ou 'image_path' (caminho)."},
-            status=400,
-        )
-
-    try:
-        if file is not None:
-            # Caso 1: upload de arquivo
-            clas, confidence = predict(file)
-        else:
-            # Caso 2: caminho de arquivo existente no servidor
-            path = Path(image_path)
-            if not path.is_file():
-                return Response(
-                    {"error": f"arquivo não encontrado no servidor: {image_path}"},
-                    status=400,
-                )
-            clas, confidence = predict(str(path))
-
-        return Response(
-            {
-                "class": clas,
-                "confidence": confidence,
-            }
-        )
-    except Exception as exc:
-        # Facilita ver o erro exato durante desenvolvimento
-        return Response(
-            {"error": "falha ao classificar imagem", "detail": str(exc)},
-            status=500,
-        )
+            return Response(
+                {"class": clas,"confidence": confidence},
+                status = status.HTTP_200_OK,     
+            )
+        except Exception as exc:
+            return Response(
+                {"error": "falha ao classificar imagem", "detail": str(exc)},
+                status = status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )

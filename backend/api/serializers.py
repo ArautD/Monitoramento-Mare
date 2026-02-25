@@ -1,8 +1,8 @@
 from rest_framework import serializers
 
 class ClassificationRequestSerializer(serializers.Serializer):
-    image = serializers.ImageField(required=false)
-    image_path = serializers.CharField(required=false, allow_blank=true)
+    image = serializers.ImageField(required=False)
+    image_path = serializers.CharField(required=False, allow_blank=True)
 
     def validate(self, attrs):
         image = attrs.get('image')

@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import classify
+from .views import ClassifyView
 
 urlpatterns = [
-    path("classify/" , classify),
+    path("classify/" , ClassifyView.as_view()),
 ]
