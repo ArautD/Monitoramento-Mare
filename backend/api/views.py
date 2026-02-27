@@ -6,6 +6,7 @@ from rest_framework.decorators import api_view
 
 from .ml.model import predict
 from .serializers import ClassificationRequestSerializer
+from .models import Classification
 
 
 @api_view(["POST"])
@@ -41,7 +42,14 @@ class ClassifyView(APIView):
                         status = status.HTTP_400_BAD_REQUEST
                     )
                 clas, confidence = predict(str(path))
-
+                Classification.objects.create(
+                    image_name = getattr(image, "name", "") if image is not None else "",
+                    image_path = str(path) if image is None else "",
+                    prediction_class = clas,
+                    confidence = confidence,
+                    extra_info = {},
+                )
+                
             return Response(
                 {"class": clas,"confidence": confidence},
                 status = status.HTTP_200_OK,     
