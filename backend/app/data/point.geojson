@@ -1,0 +1,277 @@
+{
+    "type": "FeatureCollection",
+    "features":[
+        {
+            "type": "Feature",
+            "properties": {
+            "id": "ma_atins_tile_1_12_2018",
+            "area_id": 1,
+            "area_name": "Atins - MA",
+            "year": 2018,
+            "month": 12,
+            "tile": 1,
+            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+    },
+    "geometry": {
+        "type":"Point",
+        "coordinates": [-42.72988094560987,-2.5718200053598084]
+            }
+        },
+
+        {
+            "type": "Feature",
+            "properties": {
+            "id": "ma_sao_luis_tile_1_12_2018",
+            "area_id": 2,
+            "area_name": "Sao_Luis - MA",
+            "year": 2018,
+            "month": 12,
+            "tile": 1,
+            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+    },
+    "geometry": {
+        "type":"Point",
+        "coordinates": [-44.31806070795821,-2.522197151812792]
+            }
+        },
+
+        {
+            "type": "Feature",
+            "properties": {
+            "id": "ma_paulino_neves_tile_1_12_2018",
+            "area_id": 3,
+            "area_name": "Paulino_Neves - PA",
+            "year": 2018,
+            "month": 12,
+            "tile": 1,
+            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+    },
+    "geometry": {
+        "type":"Point",
+        "coordinates": [-42.58113484616911,-2.67307998350001]
+            }
+        },
+
+        {
+            "type": "Feature",
+            "properties": {
+            "id": "rn_macau_tile_1_12_2018",
+            "area_id": 4,
+            "area_name": "Macau - RN",
+            "year": 2018,
+            "month": 12,
+            "tile": 1,
+            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+    },
+    "geometry": {
+        "type":"Point",
+        "coordinates": [-36.72162228984765,-5.063471984018455]
+            }
+        },
+
+        {
+            "type": "Feature",
+            "properties": {
+            "id": "rn_galinhos_tile_1_12_2018",
+            "area_id": 5,
+            "area_name": "Galinhos - RN",
+            "year": 2018,
+            "month": 12,
+            "tile": 1,
+            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+    },
+    "geometry": {
+        "type":"Point",
+        "coordinates": [-36.2995263931296,-5.105493801067915]
+            }
+        },
+
+        {
+            "type": "Feature",
+            "properties": {
+            "id": "pi_barra_Grande_tile_1_12_2018",
+            "area_id": 6,
+            "area_name": "Barra_Grande - PI",
+            "year": 2018,
+            "month": 12,
+            "tile": 1,
+            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+    },
+    "geometry": {
+        "type":"Point",
+        "coordinates": [-40.13128233949292,-2.8229731218752834]
+            }
+        },
+
+        {
+            "type": "Feature",
+            "properties": {
+            "id": "pa_viseu_tile_1_12_2018",
+            "area_id": 7,
+            "area_name": "Viseu - PA",
+            "year": 2018,
+            "month": 12,
+            "tile": 1,
+            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+    },
+    "geometry": {
+        "type":"Point",
+        "coordinates": [-42.72988094560987,-2.5718200053598084]
+            }
+        },
+
+        {
+            "type": "Feature",
+            "properties": {
+            "id": "pa_salinas_1_12_2018",
+            "area_id": 8,
+            "area_name": "Salinas - PA",
+            "year": 2018,
+            "month": 12,
+            "tile": 1,
+            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+    },
+    "geometry": {
+        "type":"Point",
+        "coordinates": [-47.54838120396338,-0.5774860766556658]
+            }
+        },
+
+        {
+            "type": "Feature",
+            "properties": {
+            "id": "pa_maruda_tile_1_12_2018",
+            "area_id": 9,
+            "area_name": "Maruda - PA",
+            "year": 2018,
+            "month": 12,
+            "tile": 1,
+            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+    },
+    "geometry": {
+        "type":"Point",
+        "coordinates": [-47.63027792171632,-0.6158631702864423]
+            }
+        },
+
+        {
+            "type": "Feature",
+            "properties": {
+            "id": "pa_marapanim_tile_1_12_2018",
+            "area_id": 10,
+            "area_name": "Marapanim - PA",
+            "year": 2018,
+            "month": 12,
+            "tile": 1,
+            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+    },
+    "geometry": {
+        "type":"Point",
+        "coordinates": [-47.70396391081936,-0.7213826819039901]
+            }
+        },
+
+        {
+            "type": "Feature",
+            "properties": {
+            "id": "pa_curuca_tile_1_12_2018",
+            "area_id": 11,
+            "area_name": "Curuca - PA",
+            "year": 2018,
+            "month": 12,
+            "tile": 1,
+            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+    },
+    "geometry": {
+        "type":"Point",
+        "coordinates": [-42.72988094560987,-2.5718200053598084]
+            }
+        },
+
+        {
+            "type": "Feature",
+            "properties": {
+            "id": "pa_algodoal_tile_1_12_2018",
+            "area_id": 12,
+            "area_name": "Algodoal - PA",
+            "year": 2018,
+            "month": 12,
+            "tile": 1,
+            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+    },
+    "geometry": {
+        "type":"Point",
+        "coordinates": [-47.54838120396338,-0.5774860766556658]
+            }
+        },
+
+        {
+            "type": "Feature",
+            "properties": {
+            "id": "pa_alegria_tile_1_12_2018",
+            "area_id": 13,
+            "area_name": "Alegria - PA",
+            "year": 2018,
+            "month": 12,
+            "tile": 1,
+            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+    },
+    "geometry": {
+        "type":"Point",
+        "coordinates": [-42.72988094560987,-2.5718200053598084]
+            }
+        },
+        
+
+        {
+            "type": "Feature",
+            "properties": {
+            "id": "pa_ajuruteua_tile_1_12_2018",
+            "area_id": 14,
+            "area_name": "Ajuruteua - PA",
+            "year": 2018,
+            "month": 12,
+            "tile": 1,
+            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+    },
+    "geometry": {
+        "type":"Point",
+        "coordinates": [-46.60970602726408,-0.8736334547810238]
+            }
+        },
+
+        {
+            "type": "Feature",
+            "properties": {
+            "id": "ce_itarema_tile_1_12_2018",
+            "area_id": 15,
+            "area_name": "Itarema - CE",
+            "year": 2018,
+            "month": 12,
+            "tile": 1,
+            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+    },
+    "geometry": {
+        "type":"Point",
+        "coordinates": [-36.2995263931296,-5.105493801067915]
+            }
+        },
+
+        {
+            "type": "Feature",
+            "properties": {
+            "id": "ce_aranau_tile_1_12_2018",
+            "area_id": 16,
+            "area_name": "Aranau - CE",
+            "year": 2018,
+            "month": 12,
+            "tile": 1,
+            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+    },
+    "geometry": {
+        "type":"Point",
+        "coordinates": [-42.72988094560987,-2.5718200053598084]
+            }
+        }
+    ] 
+}

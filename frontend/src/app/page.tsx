@@ -12,6 +12,7 @@ export default function HomePage() {
   const [error, setError] = useState<string | null>(null);
   const [isMapOpen, setIsMapOpen] = useState(false);
   const [isUploadOpen, setIsUploadOpen] = useState(false);
+  const [selectedArea, setSelectedArea] = useState<any>(null);
 
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
@@ -27,7 +28,59 @@ export default function HomePage() {
       center: [-48, -10], // ajuste para a área que você quer focar
       zoom: 4,
     });
-  
+    
+    map.on("load", async() => {
+      if (!apiUrl) return;
+
+      // Carrega apenas os pontos (cada ponto representa uma imagem disponível)
+      const pointsResponse = await fetch(`${apiUrl}/api/points-geojson/`);
+      const pointsGeojson = await pointsResponse.json();
+
+      map.addSource("points", {
+        type: "geojson",
+        data: pointsGeojson,
+      });
+
+      map.addLayer({
+        id: "points-circle",
+        type: "circle",
+        source: "points",
+        paint: {
+          "circle-radius": 6,
+          "circle-color": "#ef4444",
+          "circle-stroke-width": 2,
+          "circle-stroke-color": "#ffffff",
+        },
+      });
+
+      map.on("click", "points-circle", (e) => {
+        const feature = e.features?.[0];
+        if (!feature) return;
+
+        const props = feature.properties as any;
+        setSelectedArea({
+          nome: props.area_name ?? props.area_nome ?? props.nome ?? "Ponto",
+          year: props.year,
+          month: props.month,
+          tile: props.tile,
+          image_path: props.image_path,
+        });
+
+        alert(
+          `Imagem selecionada: ${props.area_name ?? props.nome} - ${props.month}/${props.year} (tile ${props.tile})`
+        );
+      });
+
+      // cursor bonito
+      map.on("mouseenter", "points-circle", () => {
+        map.getCanvas().style.cursor = "pointer";
+      });
+
+      map.on("mouseleave", "points-circle", () => {
+        map.getCanvas().style.cursor = "";
+      });
+  });
+
     // opcional: desabilitar scroll zoom
     // map.scrollZoom.disable();
   
@@ -195,14 +248,39 @@ export default function HomePage() {
               Fechar
             </button>
             <h2 className="mb-3 text-lg font-semibold text-slate-100">
-            selecionar uma área
+            Selecione a área de interesse
             </h2>
             <div className="grid gap-4 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] items-start">
               <div
               ref={mapContainerRef}
               className="h-80 w-full rounded-2x1 border border-slate-800 bg-slate-900"
               />
-            <div className="text-sm text-slate-300">
+            <div className="text-sm text-slate-300 space-y-2">
+              {!selectedArea &&(
+                <p className="text-slate-400">
+                  Clique em uma área do mapa para selecionar.
+                </p>
+              )}
+              {selectedArea && (
+                <>
+                  <p><span className="font-semibold">Nome:</span> {selectedArea.nome}</p>
+                  <p><span className="font-semibold">Classe:</span> {selectedArea.class}</p>
+                  <p>
+                    <span className="font-semibold">Confiança:</span>{" "}
+                    {(selectedArea.confidence * 100).toFixed(2)}%
+                  </p>
+
+                  <button
+                    className="mt-3 w-full rounded-md bg-emerald-500 px-3 py-2 text-sm font-semibold text-slate-950 hover:bg-emerald-400"
+                    onClick={() => {
+                      console.log("Área confirmada:", selectedArea);
+                      setIsMapOpen(false);
+                    }}
+                  >
+                    Usar esta área
+                  </button>
+                </>
+              )}
               <p className="mb-2">
                 Interaja com o mapa para selecionar a área de linha de costa
               </p>
