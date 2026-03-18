@@ -10,7 +10,8 @@
             "year": 2018,
             "month": 12,
             "tile": 1,
-            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+            "image_path":  "backend/app/data/img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+            
     },
     "geometry": {
         "type":"Point",
@@ -27,7 +28,7 @@
             "year": 2018,
             "month": 12,
             "tile": 1,
-            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+            "image_path":  "backend/app/data/img/Ma_Paulinho_neves_tile_1_12_2018.tif"
     },
     "geometry": {
         "type":"Point",
@@ -44,7 +45,7 @@
             "year": 2018,
             "month": 12,
             "tile": 1,
-            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+            "image_path":  "backend/app/data/img/Ma_Paulinho_neves_tile_1_12_2018.tif"
     },
     "geometry": {
         "type":"Point",
@@ -61,7 +62,7 @@
             "year": 2018,
             "month": 12,
             "tile": 1,
-            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+            "image_path":  "backend/app/data/img/Ma_Paulinho_neves_tile_1_12_2018.tif"
     },
     "geometry": {
         "type":"Point",
@@ -78,7 +79,7 @@
             "year": 2018,
             "month": 12,
             "tile": 1,
-            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+            "image_path":  "backend/app/data/img/Ma_Paulinho_neves_tile_1_12_2018.tif"
     },
     "geometry": {
         "type":"Point",
@@ -95,7 +96,7 @@
             "year": 2018,
             "month": 12,
             "tile": 1,
-            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+            "image_path":  "backend/app/data/img/Ma_Paulinho_neves_tile_1_12_2018.tif"
     },
     "geometry": {
         "type":"Point",
@@ -112,7 +113,7 @@
             "year": 2018,
             "month": 12,
             "tile": 1,
-            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+            "image_path":  "backend/app/data/img/Ma_Paulinho_neves_tile_1_12_2018.tif"
     },
     "geometry": {
         "type":"Point",
@@ -129,7 +130,7 @@
             "year": 2018,
             "month": 12,
             "tile": 1,
-            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+            "image_path":  "backend/app/data/img/Ma_Paulinho_neves_tile_1_12_2018.tif"
     },
     "geometry": {
         "type":"Point",
@@ -146,7 +147,7 @@
             "year": 2018,
             "month": 12,
             "tile": 1,
-            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+            "image_path":  "backend/app/data/img/Ma_Paulinho_neves_tile_1_12_2018.tif"
     },
     "geometry": {
         "type":"Point",
@@ -163,7 +164,7 @@
             "year": 2018,
             "month": 12,
             "tile": 1,
-            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+            "image_path":  "backend/app/data/img/Ma_Paulinho_neves_tile_1_12_2018.tif"
     },
     "geometry": {
         "type":"Point",
@@ -180,7 +181,7 @@
             "year": 2018,
             "month": 12,
             "tile": 1,
-            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+            "image_path":  "backend/app/data/img/Ma_Paulinho_neves_tile_1_12_2018.tif"
     },
     "geometry": {
         "type":"Point",
@@ -197,7 +198,7 @@
             "year": 2018,
             "month": 12,
             "tile": 1,
-            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+            "image_path":  "backend/app/data/img/Ma_Paulinho_neves_tile_1_12_2018.tif"
     },
     "geometry": {
         "type":"Point",
@@ -214,7 +215,7 @@
             "year": 2018,
             "month": 12,
             "tile": 1,
-            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+            "image_path":  "backend/app/data/img/Ma_Paulinho_neves_tile_1_12_2018.tif"
     },
     "geometry": {
         "type":"Point",
@@ -232,7 +233,7 @@
             "year": 2018,
             "month": 12,
             "tile": 1,
-            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+            "image_path":  "backend/app/data/img/Ma_Paulinho_neves_tile_1_12_2018.tif"
     },
     "geometry": {
         "type":"Point",
@@ -266,7 +267,7 @@
             "year": 2018,
             "month": 12,
             "tile": 1,
-            "image_path":  "img/Ma_Paulinho_neves_tile_1_12_2018.tif"
+            "image_path":  "backend/app/data/img/Ma_Paulinho_neves_tile_1_12_2018.tif"
     },
     "geometry": {
         "type":"Point",

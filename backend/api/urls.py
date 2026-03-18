@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import ClassifyView, AreaGeoJSONView, areas_geojson, points_geojson
+from .views import ClassifyView, AreaGeoJSONView, areas_geojson, points_geojson, point_preview
 
 urlpatterns = [
     path("classify/" , ClassifyView.as_view()),
     path("areas-geojson/", AreaGeoJSONView.as_view()),
     path("api/areas_geojson/", areas_geojson),
     path("points-geojson/", points_geojson),
+    path("points-preview/<str:id>/", point_preview),
 ]

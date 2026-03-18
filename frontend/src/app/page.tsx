@@ -12,12 +12,19 @@ export default function HomePage() {
   const [error, setError] = useState<string | null>(null);
   const [isMapOpen, setIsMapOpen] = useState(false);
   const [isUploadOpen, setIsUploadOpen] = useState(false);
-  const [selectedArea, setSelectedArea] = useState<any>(null);
+
+  type SelectedArea = {
+    id: string
+    nome: string
+    year: number
+    month: number
+    tile: number
+    image_path: string
+  }
+  const [selectedArea, setSelectedArea] = useState<SelectedArea | null>(null);
 
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
-
-  
 
   useEffect(() => {
     if (!isMapOpen || !mapContainerRef.current || !mapboxgl.accessToken) return;
@@ -35,6 +42,7 @@ export default function HomePage() {
       // Carrega apenas os pontos (cada ponto representa uma imagem disponível)
       const pointsResponse = await fetch(`${apiUrl}/api/points-geojson/`);
       const pointsGeojson = await pointsResponse.json();
+      
 
       map.addSource("points", {
         type: "geojson",
@@ -59,6 +67,7 @@ export default function HomePage() {
 
         const props = feature.properties as any;
         setSelectedArea({
+          id: props.id,
           nome: props.area_name ?? props.area_nome ?? props.nome ?? "Ponto",
           year: props.year,
           month: props.month,
@@ -66,9 +75,8 @@ export default function HomePage() {
           image_path: props.image_path,
         });
 
-        alert(
-          `Imagem selecionada: ${props.area_name ?? props.nome} - ${props.month}/${props.year} (tile ${props.tile})`
-        );
+        setResult(null);
+        setError(null);
       });
 
       // cursor bonito
@@ -88,6 +96,44 @@ export default function HomePage() {
       map.remove();
     };
   }, [isMapOpen]);
+
+  async function handleAnalyzeSelectedPoint() {
+    setError(null);
+    setResult(null);
+
+    if (!apiUrl) {
+      setError("Variável NEXT_PUBLIC_API_URL não está definida.");
+      return;
+    }
+    if (!selectedArea?.image_path) {
+      setError("Selecione um ponto antes de analisar.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const response = await fetch(`${apiUrl}/api/classify/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ image_path: selectedArea.image_path }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => null);
+        throw new Error(data?.error || "Erro ao chamar a API.");
+      }
+
+      const data = await response.json();
+      setResult({
+        class: data.class,
+        confidence: data.confidence,
+      });
+    } catch (err: any) {
+      setError(err.message || "Erro inesperado.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -174,7 +220,7 @@ export default function HomePage() {
 
       {isUploadOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
-        <div className="relative w-full max-w-xl rounded-2xl bg-slate-950 border border-slate-800 p-4 md:p-6">
+        <div className="relative w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-2xl bg-slate-950 border border-slate-800 p-4 md:p-6">
           <button
             onClick={() => setIsUploadOpen(false)}
             className="absolute right-4 top-3 text-slate-400 hover:text-slate-100 text-sm"
@@ -240,7 +286,7 @@ export default function HomePage() {
 
       {isMapOpen && (
         <div className = "fixed inset-0 z-50 flex items-center justify-center bg-black/70">
-          <div className="relative w-full max-w-5x1 rounded-2x1 bg-slate-950 border border-slate-800 p-4 md:p-6">
+          <div className="relative w-full max-w-5xl rounded-2xl bg-slate-950 border border-slate-800 p-4 md:p-6">
             <button
             onClick={() => setIsMapOpen(false)}
             className="absolute right-4 top-3 text-slate-400 hover:text-slate-100 text-sm"
@@ -253,32 +299,67 @@ export default function HomePage() {
             <div className="grid gap-4 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] items-start">
               <div
               ref={mapContainerRef}
-              className="h-80 w-full rounded-2x1 border border-slate-800 bg-slate-900"
+              className="h-80 w-full rounded-2xl border border-slate-800 bg-slate-900"
               />
             <div className="text-sm text-slate-300 space-y-2">
               {!selectedArea &&(
                 <p className="text-slate-400">
-                  Clique em uma área do mapa para selecionar.
+                  Clique em um ponto do mapa para selecionar.
                 </p>
               )}
               {selectedArea && (
                 <>
-                  <p><span className="font-semibold">Nome:</span> {selectedArea.nome}</p>
-                  <p><span className="font-semibold">Classe:</span> {selectedArea.class}</p>
-                  <p>
-                    <span className="font-semibold">Confiança:</span>{" "}
-                    {(selectedArea.confidence * 100).toFixed(2)}%
-                  </p>
+                  <div className="mb-3 overflow-hidden rounded-xl border border-slate-800 bg-slate-900">
+                    <img
+                      className="h-40 w-full object-cover"
+                      src={`${apiUrl}/api/points-preview/${selectedArea.id}/`}
+                      alt={`Preview ${selectedArea.nome}`}
+                    />
+                  </div>
+                  <p><span className="font-semibold">Área:</span> {selectedArea.nome}</p>
+                  <p><span className="font-semibold">Ano:</span> {selectedArea.year}</p>
+                  <p><span className="font-semibold">Mês:</span> {selectedArea.month}</p>
+                  <p><span className="font-semibold">Tile:</span>{selectedArea.tile}</p>
 
                   <button
                     className="mt-3 w-full rounded-md bg-emerald-500 px-3 py-2 text-sm font-semibold text-slate-950 hover:bg-emerald-400"
+                    disabled={loading}
+                    onClick={handleAnalyzeSelectedPoint}
+                  >
+                    {loading ? "Analisando..." : "Analisar"}
+                  </button>
+
+                  <button
+                    className="w-full rounded-md border border-slate-700 bg-slate-900/40 px-3 py-2 text-sm font-semibold text-slate-100 hover:border-slate-500"
                     onClick={() => {
-                      console.log("Área confirmada:", selectedArea);
-                      setIsMapOpen(false);
+                      setSelectedArea(null);
+                      setResult(null);
+                      setError(null);
                     }}
                   >
-                    Usar esta área
+                    Voltar
                   </button>
+
+                  {error && (
+                    <div className="mt-2 rounded-md border border-red-700 bg-red-900/40 px-3 py-2 text-sm text-red-200">
+                      {error}
+                    </div>
+                  )}
+
+                  {result && (
+                    <div className="mt-2 rounded-md border border-slate-700 bg-slate-800/80 px-3 py-3">
+                      <h3 className="mb-1 text-sm font-semibold text-slate-200">
+                        Resultado da classificação
+                      </h3>
+                      <p className="text-sm text-slate-300">
+                        <span className="font-medium">Classe:</span> {result.class}
+                      </p>
+                      <p className="text-sm text-slate-300">
+                        <span className="font-medium">Confiança:</span>{" "}
+                        {(result.confidence * 100).toFixed(2)}%
+                      </p>
+                    </div>
+                  )}
                 </>
               )}
               <p className="mb-2">
