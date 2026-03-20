@@ -12,6 +12,7 @@ export default function HomePage() {
   const [error, setError] = useState<string | null>(null);
   const [isMapOpen, setIsMapOpen] = useState(false);
   const [isUploadOpen, setIsUploadOpen] = useState(false);
+  const waveUrl = "/wave.png";
 
   type SelectedArea = {
     id: string
@@ -180,28 +181,95 @@ export default function HomePage() {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-slate-950 text-slate-50">
-      {/* Fundo com planeta terra girando + blur */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-        <div className="h-[120vmin] w-[120vmin] rounded-full bg-[url('/earth.jpg')] bg-cover bg-center opacity-40 blur-sm animate-[spin_60s_linear_infinite]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-950/80 to-slate-950" />
+    {/* Fundo igual ao seu já existe */}
+    <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+      <div className="h-[120vmin] w-[120vmin] rounded-full bg-[url('/earth.jpg')] bg-cover bg-center opacity-40 blur-sm animate-[spin_60s_linear_infinite]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-950/80 to-slate-950" />
+    </div>
+  
+    {/* Hero */}
+    <section className="relative z-10 px-4 py-20">
+      <div className="mx-auto max-w-4xl rounded-3xl border border-slate-800/60 bg-slate-950/40 p-8 shadow-2xl backdrop-blur-xl">
+        <p className="mb-3 text-xs font-medium uppercase tracking-[0.25em] text-emerald-300/80">
+          Monitoramento Costeiro Inteligente
+        </p>
+  
+        <h1 className="mb-4 text-3xl md:text-4xl font-semibold leading-tight">
+          Classificação da maré a partir de imagens de satélite
+        </h1>
+  
+        <p className="mb-8 text-sm md:text-base text-slate-300">
+          Uma CNN treinada para estimar o estado da maré em regiões costeiras.
+        </p>
+  
+        <div className="flex gap-3 flex-wrap">
+          <button className="rounded-full bg-emerald-500 px-6 py-2.5 text-sm font-semibold text-slate-950"
+            onClick={() => document.getElementById("demo")?.scrollIntoView({ behavior: "smooth" })}
+          >
+            Testar agora
+          </button>
+  
+          <button className="rounded-full border border-slate-600 bg-slate-900/40 px-6 py-2.5 text-sm font-semibold text-slate-100"
+            onClick={() => document.getElementById("resultados")?.scrollIntoView({ behavior: "smooth" })}
+          >
+            Ver resultados
+          </button>
+        </div>
       </div>
-
-      {/* Hero / Landing */}
-      <section className="relative z-10 flex min-h-screen items-center justify-center px-4">
-        <div className="max-w-3xl rounded-3xl border border-slate-800/60 bg-slate-950/40 p-8 shadow-2xl backdrop-blur-xl">
-          <p className="mb-3 text-xs font-medium uppercase tracking-[0.25em] text-emerald-300/80">
-            Monitoramento Costeiro Inteligente
-          </p>
-          <h1 className="mb-4 text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight">
-            Monitoramento de Maré a partir de imagens de satélite
-          </h1>
-          <p className="mb-8 text-sm md:text-base text-slate-300 max-w-2xl">
-            Este projeto utiliza redes neurais convolucionais para classificar o estado da maré
-            em regiões costeiras, a partir de imagens de satélite. Explore diferentes formas de
-            interação com os dados: envie uma imagem ou selecione uma área de interesse.
-          </p>
-
-          <div className="flex flex-col gap-3 sm:flex-row">
+    </section>
+  
+    {/* Sobre */}
+    <section className="relative z-10 px-4 pb-20">
+      <div className="mx-auto max-w-6xl grid md:grid-cols-3 gap-4">
+        <div className="rounded-2xl border border-slate-800/60 bg-slate-950/30 p-5">
+          <h3 className="font-semibold mb-2">Dados</h3>
+          <p className="text-slate-300 text-sm">Imagens GEE em tiles para regiões costeiras.</p>
+        </div>
+        <div className="rounded-2xl border border-slate-800/60 bg-slate-950/30 p-5">
+          <h3 className="font-semibold mb-2">Modelo</h3>
+          <p className="text-slate-300 text-sm">CNN com pré-processamento por bandas e inferência local.</p>
+        </div>
+        <div className="rounded-2xl border border-slate-800/60 bg-slate-950/30 p-5">
+          <h3 className="font-semibold mb-2">Objetivo</h3>
+          <p className="text-slate-300 text-sm">Retornar classe e confiança do estado da maré.</p>
+        </div>
+      </div>
+    </section>
+  
+    {/* Resultados */}
+    <section id="resultados" className="relative z-10 px-4 pb-20">
+      <div className="mx-auto max-w-6xl">
+        <h2 className="text-2xl font-semibold mb-6">Resultados do modelo</h2>
+  
+        <div className="grid md:grid-cols-3 gap-4">
+          <div className="rounded-2xl border border-slate-800/60 bg-slate-950/30 p-5 md:col-span-1">
+            <h3 className="font-semibold mb-2">Acurácia geral</h3>
+            <p className="text-3xl font-bold text-emerald-300">XX.XX%</p>
+            <p className="text-slate-300 text-sm mt-2">Substitua pelo valor do seu `model.evaluate()`.</p>
+          </div>
+  
+          <div className="rounded-2xl border border-slate-800/60 bg-slate-950/30 p-5 md:col-span-2">
+            <h3 className="font-semibold mb-2">Classes</h3>
+            <p className="text-slate-300 text-sm">maré baixa, maré média, maré alta, indeterminada</p>
+  
+            <div className="mt-4 grid md:grid-cols-3 gap-3">
+              <img src="/curve_accuracyTrain.png" alt="Curva de acurácia" className="rounded-lg border border-slate-800 bg-slate-900" />
+              <img src="/curve_lossTrain.png" alt="Curva de loss" className="rounded-lg border border-slate-800 bg-slate-900" />
+              <img src="/confusion_matrix.png" alt="Matriz de confusão" className="rounded-lg border border-slate-800 bg-slate-900" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    {/* Demo / Funcionalidade pronta */}
+    <section id="demo" className="relative z-10 px-4 pb-20">
+      <div className="mx-auto max-w-4xl rounded-3xl border border-slate-800/60 bg-slate-950/40 p-8 shadow-2xl backdrop-blur-xl">
+        <h2 className="text-2xl font-semibold mb-3">Funcionalidade pronta</h2>
+        <p className="text-slate-300 mb-6 text-sm">
+          Use a CNN para analisar uma imagem ou selecionar um ponto no mapa.
+        </p>
+        <div className="flex flex-col gap-3 sm:flex-row">
             <button
               onClick={() => setIsUploadOpen(true)}
               className="inline-flex items-center justify-center rounded-full bg-emerald-500 px-6 py-2.5 text-sm font-semibold text-slate-950 shadow-lg shadow-emerald-500/30 transition hover:bg-emerald-400"
@@ -284,95 +352,131 @@ export default function HomePage() {
       </div>
       )}
 
-      {isMapOpen && (
-        <div className = "fixed inset-0 z-50 flex items-center justify-center bg-black/70">
-          <div className="relative w-full max-w-5xl rounded-2xl bg-slate-950 border border-slate-800 p-4 md:p-6">
-            <button
-            onClick={() => setIsMapOpen(false)}
-            className="absolute right-4 top-3 text-slate-400 hover:text-slate-100 text-sm"
-            >
-              Fechar
-            </button>
-            <h2 className="mb-3 text-lg font-semibold text-slate-100">
-            Selecione a área de interesse
-            </h2>
-            <div className="grid gap-4 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] items-start">
-              <div
-              ref={mapContainerRef}
-              className="h-80 w-full rounded-2xl border border-slate-800 bg-slate-900"
-              />
-            <div className="text-sm text-slate-300 space-y-2">
-              {!selectedArea &&(
-                <p className="text-slate-400">
-                  Clique em um ponto do mapa para selecionar.
-                </p>
+{isMapOpen && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
+    <div className="relative w-full max-w-5xl rounded-2xl bg-slate-950 border border-slate-800 p-4 md:p-6">
+      <button
+        onClick={() => setIsMapOpen(false)}
+        className="absolute right-4 top-3 text-slate-400 hover:text-slate-100 text-sm"
+      >
+        X
+      </button>
+
+      <h2 className="mb-3 text-lg font-semibold text-slate-100">
+        Selecione a área de interesse
+      </h2>
+
+      <div className="grid gap-4 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] items-start">
+        <div
+          ref={mapContainerRef}
+          className="h-80 w-full rounded-2xl border border-slate-800 bg-slate-900"
+        />
+
+        <div className="text-sm text-slate-300 space-y-2">
+          {!selectedArea && (
+            <p className="text-slate-400">
+              Clique em um ponto do mapa para selecionar.
+            </p>
+          )}
+
+          {selectedArea && (
+            <>
+              <div className="mb-3 overflow-hidden rounded-xl border border-slate-800 bg-slate-900">
+                <img
+                  className="h-40 w-full object-cover"
+                  src={`${apiUrl}/api/points-preview/${selectedArea.id}/`}
+                  alt={`Preview ${selectedArea.nome}`}
+                />
+              </div>
+
+              <p><span className="font-semibold">Área:</span> {selectedArea.nome}</p>
+              <p><span className="font-semibold">Ano:</span> {selectedArea.year}</p>
+              <p><span className="font-semibold">Mês:</span> {selectedArea.month}</p>
+              <p><span className="font-semibold">Tile:</span> {selectedArea.tile}</p>
+
+              <button
+                className="mt-3 w-full rounded-md bg-emerald-500 px-3 py-2 text-sm font-semibold text-slate-950 hover:bg-emerald-400"
+                disabled={loading}
+                onClick={handleAnalyzeSelectedPoint}
+              >
+                {loading ? "Analisando..." : "Analisar"}
+              </button>
+
+              <button
+                className="w-full rounded-md border border-slate-700 bg-slate-900/40 px-3 py-2 text-sm font-semibold text-slate-100 hover:border-slate-500"
+                onClick={() => {
+                  setSelectedArea(null);
+                  setResult(null);
+                  setError(null);
+                }}
+              >
+                Voltar
+              </button>
+
+              {error && (
+                <div className="mt-2 rounded-md border border-red-700 bg-red-900/40 px-3 py-2 text-sm text-red-200">
+                  {error}
+                </div>
               )}
-              {selectedArea && (
-                <>
-                  <div className="mb-3 overflow-hidden rounded-xl border border-slate-800 bg-slate-900">
-                    <img
-                      className="h-40 w-full object-cover"
-                      src={`${apiUrl}/api/points-preview/${selectedArea.id}/`}
-                      alt={`Preview ${selectedArea.nome}`}
-                    />
-                  </div>
-                  <p><span className="font-semibold">Área:</span> {selectedArea.nome}</p>
-                  <p><span className="font-semibold">Ano:</span> {selectedArea.year}</p>
-                  <p><span className="font-semibold">Mês:</span> {selectedArea.month}</p>
-                  <p><span className="font-semibold">Tile:</span>{selectedArea.tile}</p>
 
-                  <button
-                    className="mt-3 w-full rounded-md bg-emerald-500 px-3 py-2 text-sm font-semibold text-slate-950 hover:bg-emerald-400"
-                    disabled={loading}
-                    onClick={handleAnalyzeSelectedPoint}
-                  >
-                    {loading ? "Analisando..." : "Analisar"}
-                  </button>
-
-                  <button
-                    className="w-full rounded-md border border-slate-700 bg-slate-900/40 px-3 py-2 text-sm font-semibold text-slate-100 hover:border-slate-500"
-                    onClick={() => {
-                      setSelectedArea(null);
-                      setResult(null);
-                      setError(null);
-                    }}
-                  >
-                    Voltar
-                  </button>
-
-                  {error && (
-                    <div className="mt-2 rounded-md border border-red-700 bg-red-900/40 px-3 py-2 text-sm text-red-200">
-                      {error}
-                    </div>
-                  )}
-
-                  {result && (
-                    <div className="mt-2 rounded-md border border-slate-700 bg-slate-800/80 px-3 py-3">
-                      <h3 className="mb-1 text-sm font-semibold text-slate-200">
-                        Resultado da classificação
-                      </h3>
-                      <p className="text-sm text-slate-300">
-                        <span className="font-medium">Classe:</span> {result.class}
-                      </p>
-                      <p className="text-sm text-slate-300">
-                        <span className="font-medium">Confiança:</span>{" "}
-                        {(result.confidence * 100).toFixed(2)}%
-                      </p>
-                    </div>
-                  )}
-                </>
+              {result && (
+                <div className="mt-2 rounded-md border border-slate-700 bg-slate-800/80 px-3 py-3">
+                  <h3 className="mb-1 text-sm font-semibold text-slate-200">
+                    Resultado da classificação
+                  </h3>
+                  <p className="text-sm text-slate-300">
+                    <span className="font-medium">Classe:</span> {result.class}
+                  </p>
+                  <p className="text-sm text-slate-300">
+                    <span className="font-medium">Confiança:</span>{" "}
+                    {(result.confidence * 100).toFixed(2)}%
+                  </p>
+                </div>
               )}
-              <p className="mb-2">
-                Interaja com o mapa para selecionar a área de linha de costa
-              </p>
-              <p className="text-xs text-slate-500">
-                Nesta primeira versão do mapa é apenas visual, depois lembrar de adicionar get
-              </p>
-            </div>
-            </div>
-          </div>
+            </>
+          )}
+
+          <p className="mb-2">
+            Interaja com o mapa para selecionar a área de linha de costa
+          </p>
+
+          <p className="text-xs text-slate-500">
+            Nesta primeira versão do mapa é apenas visual
+          </p>
         </div>
-      )}
-    </main>
+      </div>
+    </div>
+  </div>
+)}
+
+    {/* Waves */}
+    const waveUrl = "/wave.png"; // tem que estar em /public
+
+{/* Waves */}
+<div className="pointer-events-none absolute bottom-0 left-0 w-full h-[120px] overflow-hidden z-10">
+
+  <div
+    className="absolute bottom-0 left-0 w-full h-[100px] bg-[length:1000px_100px] animate-wave1 opacity-100"
+    style={{ backgroundImage: `url(${waveUrl})` }}
+  />
+
+  <div
+    className="absolute bottom-[10px] left-0 w-full h-[100px] bg-[length:1000px_100px] animate-wave2 opacity-50"
+    style={{ backgroundImage: `url(${waveUrl})` }}
+  />
+
+  <div
+    className="absolute bottom-[15px] left-0 w-full h-[100px] bg-[length:1000px_100px] animate-wave1 opacity-20"
+    style={{ backgroundImage: `url(${waveUrl})` }}
+  />
+
+  <div
+    className="absolute bottom-[20px] left-0 w-full h-[100px] bg-[length:1000px_100px] animate-wave2 opacity-70"
+    style={{ backgroundImage: `url(${waveUrl})` }}
+  />
+
+</div>
+
+  </main>
   );
 }
